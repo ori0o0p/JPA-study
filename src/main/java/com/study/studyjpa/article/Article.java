@@ -18,7 +18,10 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-class Article {
+/* 상속 매핑 전략 */
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type")
+abstract class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
