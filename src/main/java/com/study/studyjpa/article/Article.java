@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 /* 상속 매핑 전략 */
 @Inheritance(strategy = InheritanceType.JOINED)
+/* 엔티티 타입 구분 컬럼 */
 @DiscriminatorColumn(name = "type")
 abstract class Article {
 
