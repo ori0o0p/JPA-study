@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,8 +15,9 @@ import java.time.LocalDateTime;
  * - pk: `GenerationType.IDENTITY`를 사용하여 기본키 생성을 DBMS에게 위임.
  */
 
-@Getter
 @Entity
+@Getter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 /* 상속 매핑 전략 */
