@@ -8,5 +8,9 @@ spring:
     url: ${MYSQL_CONNECTION_URL}
     driver-class-name:  ${MYSQL_DRIVER}
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+
 server:
   port: 8080
