@@ -1,1 +1,6 @@
-spring.application.name=study-jpa
+spring:
+  application:
+    name: study-jpa
+
+server:
+  port: 8080
