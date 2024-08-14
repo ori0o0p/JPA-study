@@ -2,5 +2,11 @@ spring:
   application:
     name: study-jpa
 
+  datasource:
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_CONNECTION_URL}
+    driver-class-name:  ${MYSQL_DRIVER}
+
 server:
   port: 8080
