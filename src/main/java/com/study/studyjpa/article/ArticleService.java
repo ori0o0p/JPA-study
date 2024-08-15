@@ -10,7 +10,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 class ArticleService implements ArticleUseCase {
-    private final ArticleRepository articleRepository;
+    private final ArticleCustomRepository articleCustomRepository;
+    private final ArticleJpaRepository articleJpaRepository;
 
     @Override
     public void writePrivate(String title, String description, Integer privateLevel) {
@@ -31,7 +32,7 @@ class ArticleService implements ArticleUseCase {
     @Override
     @Transactional(readOnly = true)
     public List<ArticleResponse> getAll() {
-        return articleRepository.findAll()
+        return articleJpaRepository.findAll()
                 .stream()
                 .map(ArticleResponse::fromEntity)
                 .toList();
@@ -42,12 +43,19 @@ class ArticleService implements ArticleUseCase {
     public List<ArticleResponse> getAllByType(String type) {
         var articleType = (type.equals("PRIVATE")) ? PrivateArticle.class : GeneralArticle.class;
 
-        return articleRepository.findArticlesByType(articleType)
+        return articleJpaRepository.findArticlesByType(articleType)
+                .map(ArticleResponse::fromEntity)
+                .toList();
+    }
+
+    @Override
+    public List<ArticleResponse> getAllByNonDeleted() {
+        return articleCustomRepository.findAllNonDeletedArticles()
                 .map(ArticleResponse::fromEntity)
                 .toList();
     }
 
     private Article save(Article article) {
-        return articleRepository.save(article);
+        return articleJpaRepository.save(article);
     }
 }

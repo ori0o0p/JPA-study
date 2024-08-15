@@ -7,4 +7,5 @@ interface ArticleUseCase {
     void writeGeneral(String title, String content, Integer generalLevel);
     List<ArticleResponse> getAll();
     List<ArticleResponse> getAllByType(String type);
+    List<ArticleResponse> getAllByNonDeleted();
 }
