@@ -1,5 +1,6 @@
 package com.study.studyjpa.article;
 
+import com.study.studyjpa.common.Auditable;
 import com.study.studyjpa.common.annotation.ValueObject;
 import com.study.studyjpa.common.converter.BooleanToYNConverter;
 import jakarta.persistence.*;
@@ -25,7 +26,7 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.JOINED)
 /* 엔티티 타입 구분 컬럼 */
 @DiscriminatorColumn(name = "type")
-abstract class Article {
+abstract class Article extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,9 +34,6 @@ abstract class Article {
 
     @Embedded
     private Content content;
-
-    @Embedded
-    private DateTime dateTime;
 
     @Column(length = 5)
     @Convert(converter = BooleanToYNConverter.class)
@@ -47,11 +45,5 @@ abstract class Article {
             String title,
             @Column(nullable = false, length = 500)
             String description
-    ) {}
-
-    @ValueObject
-    record DateTime(
-            @CreationTimestamp LocalDateTime createdAt,
-            @UpdateTimestamp LocalDateTime updatedAt
     ) {}
 }
