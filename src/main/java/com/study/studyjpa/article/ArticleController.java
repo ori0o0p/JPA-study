@@ -16,9 +16,9 @@ class ArticleController {
     @ResponseStatus(HttpStatus.CREATED)
     void write(@RequestBody WriteArticleRequest request) {
         if (request.type.equals(WriteArticleRequest.Type.PRIVATE.name())) {
-            articleUseCase.writePrivate(request.title, request.content, request.level);
+            articleUseCase.writePrivate(request.title, request.description, request.level);
         } else {
-            articleUseCase.writeGeneral(request.title, request.content, request.level);
+            articleUseCase.writeGeneral(request.title, request.description, request.level);
         }
     }
 
@@ -31,7 +31,7 @@ class ArticleController {
 
     record ListDataResponse<T>(List<T> data) {}
 
-    record WriteArticleRequest(String title, String content, String type, Integer level) {
+    record WriteArticleRequest(String title, String description, String type, Integer level) {
         enum Type {
             PRIVATE, GENERAL
         }

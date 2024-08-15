@@ -1,6 +1,7 @@
 package com.study.studyjpa.article;
 
 import com.study.studyjpa.common.annotation.ValueObject;
+import com.study.studyjpa.common.converter.BooleanToYNConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,14 +31,23 @@ abstract class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
-    private String title;
-
-    @Column(nullable = false, length = 500)
-    private String content;
+    @Embedded
+    private Content content;
 
     @Embedded
     private DateTime dateTime;
+
+    @Column(length = 5)
+    @Convert(converter = BooleanToYNConverter.class)
+    private Boolean isPublished;
+
+    @ValueObject
+    record Content(
+            @Column(nullable = false, length = 150)
+            String title,
+            @Column(nullable = false, length = 500)
+            String description
+    ) {}
 
     @ValueObject
     record DateTime(
