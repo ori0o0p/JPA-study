@@ -1,6 +1,7 @@
 package com.study.studyjpa.article;
 
 import com.study.studyjpa.common.annotation.ValueObject;
+import com.study.studyjpa.common.converter.BooleanToYNConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,9 @@ abstract class Article {
 
     @Embedded
     private DateTime dateTime;
+
+    @Convert(converter = BooleanToYNConverter.class)
+    private Boolean isPublished;
 
     @ValueObject
     record DateTime(
