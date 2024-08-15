@@ -29,6 +29,13 @@ class ArticleController {
         return new ListDataResponse<>(data);
     }
 
+    @GetMapping("/{type}")
+    ListDataResponse<ArticleResponse> getAllByType(@PathVariable String type) {
+        final var data = articleUseCase.getAllByType(type);
+
+        return new ListDataResponse<>(data);
+    }
+
     record ListDataResponse<T>(List<T> data) {}
 
     record WriteArticleRequest(String title, String description, String type, Integer level) {
