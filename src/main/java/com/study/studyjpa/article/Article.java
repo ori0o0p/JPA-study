@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.*;
 
+import java.time.LocalDateTime;
+
 /**
  * - pk: `GenerationType.IDENTITY`를 사용하여 기본키 생성을 DBMS에게 위임.
  */
@@ -34,6 +36,9 @@ abstract class Article extends Auditable {
     @Embedded
     private Content content;
 
+    @Embedded
+    private DateTime dateTime;
+
     @Column(length = 5)
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean isPublished;
@@ -46,5 +51,11 @@ abstract class Article extends Auditable {
             String title,
             @Column(nullable = false, length = 500)
             String description
+    ) {}
+
+    @ValueObject
+    record DateTime(
+            @CreationTimestamp LocalDateTime cratedAt,
+            @UpdateTimestamp LocalDateTime updatedAt
     ) {}
 }
