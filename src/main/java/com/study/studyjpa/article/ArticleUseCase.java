@@ -6,4 +6,5 @@ interface ArticleUseCase {
     void writePrivate(String title, String content, Integer privateLevel);
     void writeGeneral(String title, String content, Integer generalLevel);
     List<ArticleResponse> getAll();
+    List<ArticleResponse> getAllByType(String type);
 }

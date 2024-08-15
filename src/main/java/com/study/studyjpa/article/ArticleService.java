@@ -37,6 +37,16 @@ class ArticleService implements ArticleUseCase {
                 .toList();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArticleResponse> getAllByType(String type) {
+        var articleType = (type.equals("PRIVATE")) ? PrivateArticle.class : GeneralArticle.class;
+
+        return articleRepository.findArticlesByType(articleType)
+                .map(ArticleResponse::fromEntity)
+                .toList();
+    }
+
     private Article save(Article article) {
         return articleRepository.save(article);
     }
