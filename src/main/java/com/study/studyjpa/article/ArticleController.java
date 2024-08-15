@@ -36,6 +36,13 @@ class ArticleController {
         return new ListDataResponse<>(data);
     }
 
+    @GetMapping("/non-deleted")
+    ListDataResponse<ArticleResponse> getAllByNonDeleted() {
+        final var data = articleUseCase.getAllByNonDeleted();
+
+        return new ListDataResponse<>(data);
+    }
+
     record ListDataResponse<T>(List<T> data) {}
 
     record WriteArticleRequest(String title, String description, String type, Integer level) {
