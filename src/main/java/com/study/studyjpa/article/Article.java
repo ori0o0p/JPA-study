@@ -37,6 +37,7 @@ abstract class Article {
     @Embedded
     private DateTime dateTime;
 
+    @Column(length = 5)
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean isPublished;
 
