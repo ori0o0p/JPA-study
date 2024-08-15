@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 /**
@@ -31,17 +32,22 @@ abstract class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
-    private String title;
-
-    @Column(nullable = false, length = 500)
-    private String content;
+    @Embedded
+    private Content content;
 
     @Embedded
     private DateTime dateTime;
 
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean isPublished;
+
+    @ValueObject
+    record Content(
+            @Column(nullable = false, length = 150)
+            String title,
+            @Column(nullable = false, length = 500)
+            String description
+    ) {}
 
     @ValueObject
     record DateTime(

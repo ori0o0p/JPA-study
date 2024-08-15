@@ -13,19 +13,17 @@ class ArticleService implements ArticleUseCase {
     private final ArticleRepository articleRepository;
 
     @Override
-    public void writePrivate(String title, String content, Integer privateLevel) {
+    public void writePrivate(String title, String description, Integer privateLevel) {
         save(PrivateArticle.builder()
-                .title(title)
-                .content(content)
+                .content(new Article.Content(title, description))
                 .privateLevel(privateLevel)
                 .build());
     }
 
     @Override
-    public void writeGeneral(String title, String content, Integer generalLevel) {
+    public void writeGeneral(String title, String description, Integer generalLevel) {
         save(GeneralArticle.builder()
-                .title(title)
-                .content(content)
+                .content(new Article.Content(title, description))
                 .generalLevel(generalLevel)
                 .build());
     }
