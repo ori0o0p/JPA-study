@@ -8,8 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
 
@@ -26,6 +25,8 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.JOINED)
 /* 엔티티 타입 구분 컬럼 */
 @DiscriminatorColumn(name = "type")
+@FilterDef(name = "deleteArticle", parameters = @ParamDef(name = "isDeleted", type = Boolean.class))
+@Filter(name = "deleteArticle", condition = "deleted = :isDeleted")
 abstract class Article extends Auditable {
 
     @Id
@@ -38,6 +39,8 @@ abstract class Article extends Auditable {
     @Column(length = 5)
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean isPublished;
+
+    private Boolean deleted;
 
     @ValueObject
     record Content(
