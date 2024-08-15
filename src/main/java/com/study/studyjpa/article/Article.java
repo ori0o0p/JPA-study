@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.*;
 
-import java.time.LocalDateTime;
-
 /**
  * - pk: `GenerationType.IDENTITY`를 사용하여 기본키 생성을 DBMS에게 위임.
  */
