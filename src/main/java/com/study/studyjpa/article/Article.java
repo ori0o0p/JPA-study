@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
 /**
  * - pk: `GenerationType.IDENTITY`를 사용하여 기본키 생성을 DBMS에게 위임.
@@ -16,6 +17,7 @@ import org.hibernate.annotations.*;
 
 @Entity
 @Getter
+@Cacheable
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,6 +27,7 @@ import org.hibernate.annotations.*;
 @DiscriminatorColumn(name = "type")
 @FilterDef(name = "deleteArticle", parameters = @ParamDef(name = "isDeleted", type = Boolean.class))
 @Filter(name = "deleteArticle", condition = "deleted = :isDeleted")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 abstract class Article extends Auditable {
 
     @Id
